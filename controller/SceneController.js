@@ -51,7 +51,7 @@ module.exports = {
     },
     updateScene:async (req,res) => {
         const player = req.params.player
-        console.log(player)
+        const body = req.body
         const sceneone = body.sceneone
         const scenetwo = body.scenetwo
         const scenethree = body.scenethree
@@ -63,7 +63,7 @@ module.exports = {
         const scenenine = body.scenenine
         const sceneten = body.sceneten
         const newScene = await Scene.findOneAndUpdate({player : player},{$set:body})
-
+        console.log(body)
         await newScene.save()
         res.status(200).json(newScene)
 

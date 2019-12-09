@@ -39,15 +39,17 @@ module.exports = {
             res.status(201).json(newPlayers)
     },
     singlePlayer: async (req,res) =>{
-        const myData = await Players.findOne({email : req.params.email},{post : 1})
+        const myData = await Players.findOne({email : req.params.email}).populate('Players')
         res.status(200).json(myData)
     },
     getPlayers: async (req,res) => {
-        const data = await Players.find().populate('xp').populate('name').populate('score').populate('country')
+        console.log("Hello")
+        const data = await Players.findOne().populate('Players')
+
         res.status(200).json(data)
     },
     mainManu: async (req,res) => {
-        const data = await Players.find({email:req.params.email},{post :1}).populate('name').populate('xp').populate('coin').populate('dimond')
+        const data = await Players.findOne({},{name:1, xp:1, score:1}).populate('Players').sort({score: -1})
         res.status(200).json(data)
 
     },
@@ -62,7 +64,7 @@ module.exports = {
         const country = body.country
         const dimond = body.dimond
         const score = body.score
-        const newPLayers = await Fruit.findOneAndUpdate({email : email},{$set:body})
+        const newPLayers = await Players.findOneAndUpdate({email : email},{$set:body})
         await newPLayers.save()
         res.status(200).json(newPLayers)
 

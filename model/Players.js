@@ -3,8 +3,7 @@ mongoose.Promise = require('bluebird');
 const timestamps = require('mongoose-timestamp')
 const Schema = mongoose.Schema;
 const PlayersSchema = new Schema({
-    first_name : String,
-    last_name : String,
+    name : String,
     email : String,
     profile_pic : String,
     xp : Number,
